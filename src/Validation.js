@@ -4,9 +4,11 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 function Validation() {
   const [validated, setValidated] = useState(false);
+  const now = 100;
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -19,6 +21,9 @@ function Validation() {
   };
 
 return(
+  <div>
+    <ProgressBar now={now} striped variant="success" label={`${now}%`} />
+
   <Form noValidate validated={validated} onSubmit={handleSubmit}>
   <Row className="mb-3">
         <Form.Group as={Col} md="4" controlId="validationCustom01">
@@ -100,7 +105,19 @@ return(
         />
       </Form.Group>
       <Button type="submit">Soummetre</Button>
+      
   </Form>
+  
+  <div className="position-absolute top-50 start-50 translate-middle">
+                
+                <p>Si vous avez aimez notre site n'oubliez pas de nous laisser un avis :) </p>
+                
+            </div>
+  
+  </div>
+    
+
+
  );
 }
 

@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React from 'react';
+import React,{useContext} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Link } from "react-router-dom";
@@ -16,11 +16,31 @@ import Choix from './Choix';
 import Validation from './Validation';
 import Confirmation from './Confirmation';
 import Card from 'react-bootstrap/Card';
+
 import Button from 'react-bootstrap/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import English from './English';
+import Accordion from 'react-bootstrap/Accordion';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 
 
 
+function CustomToggle({ children, eventKey }) {
+  const decoratedOnClick = useAccordionButton(eventKey, () =>
+    console.log('totally custom!'),
+  );
+
+  return (
+    <button
+      type="button"
+      style={{ backgroundColor: 'pink' }}
+      onClick={decoratedOnClick}
+    >
+      {children}
+    </button>
+  );
+}
 
 
 function App() {
@@ -29,22 +49,16 @@ function App() {
   function handleClick(lang) {
     i18next.changeLanguage(lang)
   }
+  const now = 25;
   return (
     <Router>
+      
     <div className="App">
     <nav className="navbar">
       <h1>Liverpool kit </h1>
       <div className="links">
 
-        <button onClick={()=>handleClick('en')} >
-            English
-        </button>
-        <button onClick={()=>handleClick('ko')} >
-            Korean
-        </button>
-        <button onClick={()=>handleClick('chi')} >
-            Chinese
-        </button>
+        
         {t('Hello')}
         <Link to="/choix">{t('Choix de t-shirts')} </Link>
         <Link to="/ambassadeur">{t('Nos Ambassadeur')} </Link>
@@ -68,6 +82,9 @@ function App() {
             <Route exact path="/avis">
               <Avis />
             </Route>
+            <Route exact path="/english">
+              <English />
+            </Route>
 
             <Route exact path="/validation">
             <Validation />
@@ -79,9 +96,10 @@ function App() {
             
           </Switch>
           
-          
+          <ProgressBar now={now} striped variant="info" label={`${now}%`} />
+
           <div style={{ float: 'left'}} >
-                <img src='./img/ap.PNG' className="img-fluid border-radius p-4" alt="" />
+                <img src={"./img/ap.PNG"}  className="img-fluid border-radius p-4" alt="" />
             </div>
 
           <Card style={{ width: '18rem' }}>
@@ -118,6 +136,36 @@ function App() {
           
       </div>
 
+      <Link to="/english" className="link-dark d-inline-flex text-decoration-none rounded">
+        <button> Aller vers la version anglaise </button>
+        </Link>
+
+        <Accordion defaultActiveKey="0">
+      <Card>
+        <Card.Header>
+          <CustomToggle eventKey="0">Guide!</CustomToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="0">
+          <Card.Body><p>
+                      Voici un petit guide sur comment naviguer dans notre sit web pour vous
+                      aider a prendre votre t-shirt :<br />
+                      Pour choisir un kit vous avez deux choix :
+                      vous pouvez cliquer sur le boutton choisir kit ou bien cliquer sur le lien en haut de la page "choix de t-shirts" 
+                      
+                      Ensuite vous pouvez scroller vers le bas pour voir
+                      tout les kits et en choisir un ou bien faire votre choix par annee dans la barre fournit, pour choisir une tenue il suffit de cliquer 
+                      sur l'image. 
+          
+                      Finalement une page de confirmation ou vous devez entrez  vos 
+                      informations et les valider ,puis cliquer sur soummettre .
+                      Pour savoir un peu plus sur les ambassadeurs cliquer sur le lien en haut: nos 
+                      ambassadeurs 
+          
+                    </p></Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      
+    </Accordion>
 
       <Footer />
     </div>

@@ -40,9 +40,9 @@ const Confirmation = () => {
 
 
             <div className="position-absolute top-50 start-50 translate-middle">
-                <Link to="/avis">
-                <button class="btn btn-primary" type="button">Votre avis nous intéresse</button>
-                </Link>
+                
+                <p>Si vous avez aimez notre site n'oubliez pas de nous laisser un avis :) </p>
+                
             </div>
 
         </div>
